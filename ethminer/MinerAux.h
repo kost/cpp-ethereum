@@ -87,6 +87,12 @@ inline std::string credits()
 	return out.str();
 }
 
+std::string getEnvVar(std::string const& key)
+{
+    char const* val = getenv(key.c_str());
+    return val == NULL ? std::string() : std::string(val);
+}
+
 class BadArgument: public Exception {};
 struct MiningChannel: public LogChannel
 {
@@ -110,6 +116,20 @@ public:
 	};
 
 	MinerCLI(OperationMode _mode = OperationMode::None): mode(_mode) {}
+
+	void doEnv()
+	{
+		string minertype = getEnvVar("ETHTYPE");
+		if (!minertype.empty())
+			if (minertype == "opencl")
+				m_minerType = MinerType::CL;
+			if (minertype == "cuda")
+				m_minerType = MinerType::CUDA;
+
+		string minerurl = getEnvVar("ETHURL");
+		if (!minerurl.empty())
+			m_farmURL = minerurl;
+	}
 
 	bool interpretOption(int& i, int argc, char** argv)
 	{
