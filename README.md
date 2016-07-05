@@ -101,7 +101,7 @@ git clone https://github.com/Genoil/cpp-ethereum/
 cd cpp-ethereum/
 mkdir build
 cd build
-cmake -DBUNDLE=miner ..
+cmake -DBUNDLE=cudaminer ..
 make -j8
 ```
 
