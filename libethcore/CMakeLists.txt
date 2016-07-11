@@ -20,6 +20,8 @@ file(GLOB HEADERS "*.h")
 
 add_library(${EXECUTABLE} ${SRC_LIST} ${HEADERS})
 
+add_library(${EXECUTABLE}_static STATIC ${SRC_LIST} ${HEADERS})
+
 target_link_libraries(${EXECUTABLE} ethash)
 
 if (ETHASHCL)

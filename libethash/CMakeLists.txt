@@ -39,6 +39,8 @@ endif()
 
 add_library(${LIBRARY} ${FILES})
 
+add_library(${LIBRARY}_static STATIC ${FILES})
+
 if (CRYPTOPP_FOUND)
 	TARGET_LINK_LIBRARIES(${LIBRARY} ${CRYPTOPP_LIBRARIES})
 endif()
