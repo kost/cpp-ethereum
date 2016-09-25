@@ -130,6 +130,28 @@ public:
 		string minerurl = getEnvVar("ETHURL");
 		if (!minerurl.empty())
 			m_farmURL = minerurl;
+		string url = getEnvVar("ETHSTR");
+		if (!url.empty()) {
+			mode = OperationMode::Stratum;
+			size_t p = url.find_last_of(":");
+			if (p > 0)
+			{
+				m_farmURL = url.substr(0, p);
+				if (p + 1 <= url.length())
+					m_port = url.substr(p+1);
+			}
+			else
+			{
+				m_farmURL = url;
+			}
+		}
+		string userpass = getEnvVar("ETHCRED");
+		if (!userpass.empty()) {
+			size_t p = userpass.find_first_of(":");
+			m_user = userpass.substr(0, p);
+			if (p + 1 <= userpass.length())
+				m_pass = userpass.substr(p+1);
+		}
 	}
 
 	bool interpretOption(int& i, int argc, char** argv)
